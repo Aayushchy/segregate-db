@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+#Mysql
+spring:
+  datasource:
+    high-end-server:
+      url: jdbc:mysql://localhost:3306/high_end_server
+      username: root
+      password: root
+#      driver-class-name: com.mysql.jdbc.Driver
+
+#    url: jdbc:mysql://localhost:3306/high_end_server
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.jdbc.Driver
+
+    low-end-server:
+      url: jdbc:postgresql://localhost:5432/low_end_server
+      username: postgres
+      password: root
+#      driver-class-name: org.postgresql.Driver
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+
+storage:
+  file:
+    path: C:\Users\ThinkPad\Documents\Projects\file-storage\
