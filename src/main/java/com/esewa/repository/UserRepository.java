@@ -1,4 +1,4 @@
-package com.esewa.highendrepository;
+package com.esewa.repository;
 
 import com.esewa.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;

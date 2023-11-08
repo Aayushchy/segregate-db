@@ -19,11 +19,15 @@ spring:
       url: jdbc:postgresql://localhost:5432/low_end_server
       username: postgres
       password: root
-#      driver-class-name: org.postgresql.Driver
+
+#  main:
+#    allow-bean-definition-overriding: true
+  #      driver-class-name: org.postgresql.Driver
 
 #  jpa:
 #    hibernate:
 #      ddl-auto: update
+
 
 storage:
   file:

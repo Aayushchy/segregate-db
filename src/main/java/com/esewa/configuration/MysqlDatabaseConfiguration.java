@@ -1,11 +1,13 @@
 package com.esewa.configuration;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -21,27 +23,29 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"com.esewa.highendrepository"},
-        entityManagerFactoryRef = "highEndServerEntityManagerFactory",
+//        basePackages = {"com.esewa.repository"},
+        entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "highEndServerTransactionManager"
 )
-//@Import(CommonJpaRepositoryConfig.class)
 public class MysqlDatabaseConfiguration {
 
     @Bean
+    @Primary
     @ConfigurationProperties("spring.datasource.high-end-server")
     public DataSourceProperties highEndServerSataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
+    @Primary
     public DataSource highEndServerDataSource() {
         return highEndServerSataSourceProperties()
                 .initializeDataSourceBuilder()
                 .build();
     }
 
-    @Bean
+    @Bean(name = "entityManagerFactory")
+    @Primary
     public LocalContainerEntityManagerFactoryBean highEndServerEntityManagerFactory(@Qualifier("highEndServerDataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
@@ -49,6 +53,7 @@ public class MysqlDatabaseConfiguration {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(getHibernateProperties());
+        em.setPersistenceUnitName("mysql");
         return em;
     }
 
@@ -60,8 +65,8 @@ public class MysqlDatabaseConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager highEndServerTransactionManager(
-            @Qualifier("highEndServerEntityManagerFactory") LocalContainerEntityManagerFactoryBean highEndServerEntityManagerFactory) {
+    @Primary
+    public PlatformTransactionManager highEndServerTransactionManager(@Qualifier("entityManagerFactory") LocalContainerEntityManagerFactoryBean highEndServerEntityManagerFactory) {
         return new JpaTransactionManager(Objects.requireNonNull(highEndServerEntityManagerFactory.getObject()));
     }
 }

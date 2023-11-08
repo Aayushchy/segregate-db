@@ -21,11 +21,10 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"com.esewa.lowendrepository"},
-        entityManagerFactoryRef = "lowEndServerEntityManagerFactory",
+//        basePackages = {"com.esewa.repository"},
+        entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "lowEndServerTransactionManager"
 )
-//@Import(CommonJpaRepositoryConfig.class)
 public class PostgresDatabaseConfiguration {
 
     @Bean
