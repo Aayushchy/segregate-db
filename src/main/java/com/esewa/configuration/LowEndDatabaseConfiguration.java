@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -25,8 +24,7 @@ import java.util.Properties;
         entityManagerFactoryRef = "lowEndServerEntityManagerFactory",
         transactionManagerRef = "lowEndServerTransactionManager"
 )
-//@Import(CommonJpaRepositoryConfig.class)
-public class PostgresDatabaseConfiguration {
+public class LowEndDatabaseConfiguration {
 
     @Bean
     @ConfigurationProperties("spring.datasource.low-end-server")

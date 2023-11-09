@@ -1,5 +1,7 @@
 package com.esewa.service;
 
+import com.esewa.dto.FileDto;
+import com.esewa.dto.FileResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -7,9 +9,12 @@ import java.util.List;
 
 public interface FileStorageService {
 
-    void saveFile(MultipartFile file, Long userId) throws IOException;
+    void saveFile(MultipartFile file, Long userId);
 
-    byte[] readFile(String fileName) throws IOException;
+    FileResponse readFile(Long userId);
 
     void saveFiles(List<MultipartFile> files);
+
+    FileDto displayFile(String fileName);
+
 }
